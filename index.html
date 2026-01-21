@@ -1192,7 +1192,32 @@
         if (en.isIntersecting) en.target.classList.add("show");
       });
     }, {threshold: .12});
-    els.forEach(el=>io.observe(el));
+     els.forEach(el=>io.observe(el));
+  // ===== Intro (פתיח לוגו) =====
+const intro = document.getElementById("electricIntro");
+const introSkip = document.getElementById("introSkip");
+const introLogo = document.getElementById("introLogo");
+
+// לשים ללוגו בפתיח את אותה תמונה של הלוגו
+if (introLogo) introLogo.src = "logo.png";
+
+function hideIntro(){
+  if (!intro) return;
+  intro.classList.add("is-hidden");
+  // להסיר אחרי האנימציה כדי לא לחסום קליקים
+  setTimeout(() => intro.remove(), 650);
+}
+
+// להיעלם אוטומטית אחרי 1.8 שניות
+setTimeout(hideIntro, 1800);
+
+// כפתור דילוג
+introSkip?.addEventListener("click", hideIntro);
+
+// לחיצה על הרקע גם מדלגת
+intro?.addEventListener("click", (e) => {
+  if (e.target === intro) hideIntro();
+});
   </script>
 </body>
 </html>
