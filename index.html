@@ -35,7 +35,10 @@
     }
 
     *{box-sizing:border-box}
-    html{scroll-behavior:smooth}
+    html{
+  scroll-behavior: smooth;
+  scroll-padding-top: 92px; /* מרווח ל-Topbar כדי שלא יכסה כותרות */
+}
     body{
       margin:0;
       font-family: system-ui, -apple-system, Segoe UI, Arial, "Noto Sans Hebrew", sans-serif;
@@ -248,9 +251,15 @@
       font-size:13px;
       display:none;
     }
+  
+   section{
+  padding:30px 0;
+  scroll-margin-top: 92px;
+}
+#contact{
+  scroll-margin-top: 92px;
+}
 
-    /* Sections */
-    section{padding:30px 0}
     .sectionHead{
       display:flex; align-items:flex-end; justify-content:space-between;
       gap:14px; margin-bottom:14px;
@@ -378,6 +387,9 @@
       .ctaRow{justify-content:flex-start}
       .float{right:12px; bottom:12px}
       .body{ padding-bottom: 150px; }
+      .html{ scroll-padding-top: 78px; }
+      .section{ scroll-margin-top: 78px; }
+      .#contact{ scroll-margin-top: 78px; }
     }
 
     /* ===== Electric Logo Intro (Animated Logo Build) ===== */
