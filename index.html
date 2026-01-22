@@ -795,6 +795,38 @@ select option:disabled{
   }
 }
 /* ===== /Mobile Brand Flow Fix ===== */
+/* ===== Mobile Topbar Layout Fix (no overlap) ===== */
+@media (max-width: 980px){
+  .nav{
+    flex-wrap: wrap;          /* מאפשר לרדת שורה */
+    row-gap: 10px;
+    padding: 12px 0;
+  }
+
+  .brand{
+    flex: 1 1 auto;
+    min-width: 0 !important;
+    order: 1;
+  }
+
+  .ctaRow{
+    order: 2;
+    width: 100%;
+    justify-content: flex-start;
+    gap: 10px;
+  }
+
+  .ctaRow .btn{
+    flex: 0 0 auto;
+  }
+
+  /* הכפתור הצהוב (קבל הצעת מחיר) נשאר בולט */
+  .ctaRow .btn.primary{
+    flex: 1 1 auto;           /* יתפוס מקום יפה בשורה */
+    justify-content: center;
+  }
+}
+/* ===== /Mobile Topbar Layout Fix ===== */
 
   </style>
 </head>
