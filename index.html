@@ -370,14 +370,13 @@
       .brand{min-width:auto}
       .links{display:none}
       .mobileMenuBtn{display:inline-flex}
-      /* חשוב: לא מכריחים את mobilePanel להיות block כאן, אחרת התפריט תמיד פתוח */
       .cards, .services, .reviews{grid-template-columns:1fr; }
       .grid2{grid-template-columns:1fr}
       .ctaRow{justify-content:flex-start}
       .float{right:12px; bottom:12px}
     }
 
-    /* ===== Electric Logo Intro ===== */
+    /* ===== Electric Logo Intro (Animated Logo Build) ===== */
     .electric-intro{
       position: fixed;
       inset: 0;
@@ -406,16 +405,21 @@
       filter: drop-shadow(0 18px 45px rgba(0,0,0,.35));
     }
 
+    /* ===== לוגו “נבנה” (Reveal + Pop) ===== */
     .electric-intro__logo{
       width: 100%;
       height: 100%;
       border-radius: 999px;
       object-fit: cover;
-      transform: scale(.92);
-      animation: intro-pop 900ms cubic-bezier(.2,.9,.2,1) 120ms forwards;
-      box-shadow: 0 0 0 0 rgba(255,215,0,.0);
+      opacity: 0;
+      transform: translateY(10px) scale(.86);
+      clip-path: circle(0% at 50% 52%);
+      animation:
+        logo-reveal 980ms cubic-bezier(.2,.9,.2,1) 120ms forwards,
+        logo-pop 900ms cubic-bezier(.2,.9,.2,1) 160ms forwards;
     }
 
+    /* הילה סביב הלוגו */
     .electric-intro__wrap::before{
       content:"";
       position:absolute;
@@ -427,6 +431,26 @@
       animation: halo-on 1200ms ease 250ms forwards;
     }
 
+    /* “שיין” שעובר על הלוגו עצמו */
+    .logo-shine{
+      position:absolute;
+      inset:0;
+      border-radius:999px;
+      pointer-events:none;
+      opacity:0;
+      background: linear-gradient(115deg,
+        transparent 0%,
+        rgba(255,255,255,0) 35%,
+        rgba(255,255,255,.38) 48%,
+        rgba(255,215,0,.25) 52%,
+        rgba(255,255,255,0) 65%,
+        transparent 100%);
+      mix-blend-mode: screen;
+      transform: translateX(-65%);
+      animation: shine-sweep 1200ms ease 520ms forwards;
+    }
+
+    /* “הבזק” */
     .electric-intro__wrap::after{
       content:"";
       position:absolute;
@@ -444,12 +468,14 @@
       mix-blend-mode: screen;
     }
 
+    /* שכבת ברקים SVG */
     .electric-intro__svg{
       position:absolute;
       inset:-10%;
       width:120%;
       height:120%;
       overflow: visible;
+      pointer-events:none;
     }
     .bolt{
       fill: none;
@@ -458,7 +484,7 @@
       stroke-linecap: round;
       stroke-linejoin: round;
       filter: drop-shadow(0 0 10px var(--intro-glow));
-      opacity: .0;
+      opacity: 0;
       stroke-dasharray: 280;
       stroke-dashoffset: 280;
       animation: bolt-draw 900ms ease forwards;
@@ -474,6 +500,7 @@
       animation-delay: 380ms;
     }
 
+    /* ניצוצות קטנים */
     .spark{
       position:absolute;
       width: 10px;
@@ -489,6 +516,7 @@
     .s3{ bottom: 18%; left: 22%; animation-delay: 410ms; }
     .s4{ bottom: 22%; right: 20%; animation-delay: 520ms; }
 
+    /* כפתור דילוג */
     .intro-skip{
       position: fixed;
       z-index: 10000;
@@ -502,20 +530,28 @@
       font: 600 14px/1 system-ui, -apple-system, Segoe UI, Arial;
       backdrop-filter: blur(6px);
       cursor: pointer;
-      transition: transform .15s ease, background .15s ease, border-color .15s ease;
     }
-    .intro-skip:hover{ transform: translateY(-1px); background: rgba(0,0,0,.35); border-color: rgba(255,255,255,.4); }
-    .intro-skip:active{ transform: translateY(0px) scale(.98); }
-    .intro-skip:focus{ outline: 3px solid rgba(255,215,0,.55); outline-offset: 2px; }
 
-    @keyframes intro-pop{
-      0%{ transform: scale(.86); }
-      55%{ transform: scale(1.02); }
-      100%{ transform: scale(.96); }
+    /* אנימציות */
+    @keyframes logo-reveal{
+      0%{ opacity:0; clip-path: circle(0% at 50% 52%); }
+      65%{ opacity:1; clip-path: circle(55% at 50% 52%); }
+      100%{ opacity:1; clip-path: circle(72% at 50% 52%); }
+    }
+    @keyframes logo-pop{
+      0%{ transform: translateY(10px) scale(.86); }
+      60%{ transform: translateY(0px) scale(1.02); }
+      100%{ transform: translateY(0px) scale(.98); }
     }
     @keyframes halo-on{
       0%{ opacity: 0; transform: scale(.92); }
       100%{ opacity: 1; transform: scale(1); }
+    }
+    @keyframes shine-sweep{
+      0%{ opacity:0; transform: translateX(-65%); }
+      25%{ opacity:.95; }
+      70%{ opacity:.35; }
+      100%{ opacity:0; transform: translateX(65%); }
     }
     @keyframes flash-sweep{
       0%{ opacity: 0; transform: rotate(0deg) scale(.92); }
@@ -536,6 +572,7 @@
 
     @media (prefers-reduced-motion: reduce){
       .electric-intro__logo,
+      .logo-shine,
       .electric-intro__wrap::before,
       .electric-intro__wrap::after,
       .bolt,
@@ -549,10 +586,12 @@
 
 <body>
 
-  <!-- ===== Electric Logo Intro ===== -->
+  <!-- ===== Electric Logo Intro (NEW) ===== -->
   <div class="electric-intro" id="electricIntro" aria-label="פתיח אנימציה">
     <div class="electric-intro__wrap" aria-hidden="true">
       <img class="electric-intro__logo" id="introLogo" alt="לוגו נועם עבודות חשמל" />
+      <div class="logo-shine"></div>
+
       <svg class="electric-intro__svg" viewBox="0 0 100 100" aria-hidden="true">
         <path class="bolt b1" d="M18 42 L30 34 L34 44 L46 36 L40 52 L54 46 L48 64" />
         <path class="bolt b2" d="M76 34 L66 44 L74 48 L62 58 L70 62 L58 72" />
@@ -567,7 +606,7 @@
 
     <button class="intro-skip" id="introSkip" type="button">דלג</button>
   </div>
-  <!-- ===== /Electric Logo Intro ===== -->
+  <!-- ===== /Electric Logo Intro (NEW) ===== -->
 
   <!-- Top bar -->
   <div class="topbar">
@@ -652,11 +691,11 @@
             <div class="grid2">
               <div class="field">
                 <label for="fullName">שם מלא</label>
-                <input id="fullName" name="fullName" placeholder=>
+                <input id="fullName" name="fullName" placeholder="שם מלא" required>
               </div>
               <div class="field">
                 <label for="phone">טלפון</label>
-                <input id="phone" name="phone" placeholder=>
+                <input id="phone" name="phone" type="tel" inputmode="tel" placeholder="טלפון" required>
               </div>
             </div>
 
@@ -676,7 +715,7 @@
               </div>
               <div class="field">
                 <label for="city">עיר / אזור</label>
-                <input id="city" name="city" placeholder=>
+                <input id="city" name="city" placeholder="עיר / אזור">
               </div>
             </div>
 
@@ -953,7 +992,6 @@
         menuBtn.textContent = open ? "תפריט" : "סגור";
       });
 
-      // Close mobile panel on link click
       mobilePanel.querySelectorAll("a").forEach(a => {
         a.addEventListener("click", () => {
           mobilePanel.style.display = "none";
@@ -963,15 +1001,15 @@
       });
     }
 
-    // ====== WhatsApp links ======
+    // ====== WhatsApp links (רק לכפתורי ווטסאפ אמיתיים) ======
     function waLink(message){
       const txt = encodeURIComponent(message);
       return `https://wa.me/${WHATSAPP_NUMBER_INTL}?text=${txt}`;
     }
 
-    const waBtns = [
-      "waBtnTop","waBtnForm","waBtnPackages","waBtnFooter","waBtnFloat"
-    ].map(id => document.getElementById(id)).filter(Boolean);
+    const waBtns = ["waBtnFooter","waBtnFloat"]
+      .map(id => document.getElementById(id))
+      .filter(Boolean);
 
     waBtns.forEach(btn => btn.href = waLink(DEFAULT_WA_MESSAGE));
 
@@ -1069,23 +1107,30 @@
     }, {threshold: .12});
     els.forEach(el=>io.observe(el));
 
-    // ===== Intro =====
-    const intro = document.getElementById("electricIntro");
-    const introSkip = document.getElementById("introSkip");
-    const introLogo = document.getElementById("introLogo");
-    if (introLogo) introLogo.src = "logo-new2.png";
+    // ===== Intro (NEW) =====
+    const LOGO_SVG_SRC = "2noam-logo.svg"; // תשנה אם צריך (למשל: "logo-new2.png")
+    const INTRO_DURATION = 2400;
 
-    function hideIntro(){
-      if (!intro) return;
-      intro.classList.add("is-hidden");
-      setTimeout(() => intro.remove(), 650);
-    }
+    (function initElectricIntro(){
+      const intro = document.getElementById("electricIntro");
+      const skipBtn = document.getElementById("introSkip");
+      const logo = document.getElementById("introLogo");
 
-    setTimeout(hideIntro, 1800);
-    introSkip?.addEventListener("click", hideIntro);
-    intro?.addEventListener("click", (e) => {
-      if (e.target === intro) hideIntro();
-    });
+      if (logo) logo.src = LOGO_SVG_SRC;
+
+      const closeIntro = () => {
+        if (!intro || intro.classList.contains("is-hidden")) return;
+        intro.classList.add("is-hidden");
+        setTimeout(() => intro.remove(), 650);
+      };
+
+      const prefersReduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      setTimeout(closeIntro, prefersReduced ? 250 : INTRO_DURATION);
+
+      skipBtn?.addEventListener("click", closeIntro);
+      intro?.addEventListener("click", (e) => { if (e.target === intro) closeIntro(); });
+      window.addEventListener("keydown", (e) => { if (e.key === "Escape") closeIntro(); });
+    })();
   </script>
 </body>
 </html>
