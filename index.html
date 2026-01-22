@@ -288,16 +288,134 @@
       display:grid; gap:6px;
     }
     label{font-size:12px; color:rgba(234,240,255,.82); font-weight:700}
-    input, textarea, select{
-      width:100%;
-      padding:12px 12px;
-      border-radius:14px;
-      border:1px solid rgba(255,255,255,.14);
-      background: rgba(255,255,255,.06);
-      color: var(--text);
-      outline:none;
-      font-size:14px;
-    }
+  /* ===== Premium Form (ALL FIELDS) ===== */
+
+/* קופסת הטופס */
+.leadCard{
+  border: 1px solid rgba(255,255,255,.14);
+  box-shadow: 0 22px 70px rgba(0,0,0,.35);
+}
+
+/* ריווח וכותרות */
+.leadCard h3{ font-size: 20px; letter-spacing: -.2px; }
+.leadCard p{ color: rgba(234,240,255,.78); }
+
+/* שדות */
+.field{ position: relative; }
+label{
+  font-size: 12px;
+  color: rgba(234,240,255,.78);
+  font-weight: 800;
+}
+
+/* סטייל אחיד לכל השדות */
+input, textarea, select{
+  width: 100%;
+  padding: 13px 14px;
+  border-radius: 16px;
+  border: 1px solid rgba(255,255,255,.14);
+  background:
+    radial-gradient(140px 90px at 15% 0%, rgba(255,208,0,.10), transparent 60%),
+    rgba(255,255,255,.055);
+  color: rgba(234,240,255,.95);
+  outline: none;
+  font-size: 14px;
+  font-weight: 700;
+  box-shadow: 0 10px 26px rgba(0,0,0,.18);
+  transition: border-color .18s ease, box-shadow .18s ease, transform .18s ease, background .18s ease;
+}
+
+/* פלייסהולדר */
+input::placeholder, textarea::placeholder{
+  color: rgba(234,240,255,.45);
+  font-weight: 700;
+}
+
+/* hover עדין */
+input:hover, textarea:hover, select:hover{
+  border-color: rgba(255,255,255,.20);
+  background:
+    radial-gradient(140px 90px at 15% 0%, rgba(255,208,0,.13), transparent 60%),
+    rgba(255,255,255,.07);
+}
+
+/* פוקוס פרימיום */
+input:focus, textarea:focus, select:focus{
+  border-color: rgba(255,208,0,.38);
+  box-shadow:
+    0 0 0 4px rgba(255,208,0,.14),
+    0 16px 42px rgba(0,0,0,.24);
+  transform: translateY(-1px);
+}
+
+/* textarea */
+textarea{
+  min-height: 110px;
+  resize: vertical;
+}
+
+/* SELECT: חץ פרימיום + מראה אחיד */
+select{
+  appearance: none;
+  -webkit-appearance: none;
+  padding-left: 44px; /* מקום לחץ */
+  cursor: pointer;
+  color-scheme: dark;
+}
+
+/* חץ (על כל שדה שיש בו select) */
+.field:has(select)::after{
+  content:"";
+  position:absolute;
+  left:16px;
+  top: 38px;           /* מתאים לגובה הלייבל */
+  width: 10px;
+  height: 10px;
+  transform: rotate(45deg);
+  border-right: 2px solid rgba(234,240,255,.75);
+  border-bottom: 2px solid rgba(234,240,255,.75);
+  opacity:.95;
+  pointer-events:none;
+}
+
+/* תפריט אפשרויות (כמה שיותר אחיד במחשב) */
+select option{
+  background: #06142d;
+  color: #eaf0ff;
+}
+select option:disabled{
+  color: rgba(234,240,255,.55);
+}
+
+/* כפתורים בטופס */
+.formActions .btn{
+  border-radius: 16px;
+  box-shadow: 0 14px 34px rgba(0,0,0,.22);
+}
+
+/* כפתור צהוב - נשאר פרימיום */
+.btn.primary{
+  background: linear-gradient(135deg, var(--brand) 0%, var(--brand2) 100%);
+  color:#1a1a1a;
+  border: none;
+  box-shadow: 0 16px 42px rgba(255,208,0,.18);
+}
+.btn.primary:hover{
+  filter: brightness(1.03);
+  transform: translateY(-1px);
+}
+
+/* כפתור משני (מייל) */
+.formActions .btn:not(.primary){
+  background: rgba(255,255,255,.06);
+  border: 1px solid rgba(255,255,255,.14);
+}
+.formActions .btn:not(.primary):hover{
+  background: rgba(255,255,255,.09);
+}
+
+/* ===== /Premium Form ===== */
+
 select{
   color-scheme: dark;
 }
