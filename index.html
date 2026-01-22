@@ -744,7 +744,58 @@ select option:disabled{
       .spark{
         animation: none !important;
       }
-    }
+   }
+  /* ===== Mobile Brand Flow Fix ===== */
+@media (max-width: 980px){
+  .nav{
+    align-items: center;
+    gap: 12px;
+  }
+
+  .brand{
+    min-width: 0 !important;
+    gap: 10px;
+    align-items: center;
+    padding-block: 2px;
+  }
+
+  .brand img{
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+  }
+
+  .brand > div{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    min-width: 0;
+  }
+
+  .brand .name{
+    font-size: 14px;
+    font-weight: 900;
+    line-height: 1.05;
+    letter-spacing: -0.2px;
+    margin: 0;
+    white-space: nowrap;
+    text-wrap: nowrap;
+  }
+
+  .brand .tag{
+    margin-top: 4px;
+    font-size: 11.5px;
+    font-weight: 700;
+    line-height: 1.1;
+    color: rgba(234,240,255,.68);
+    letter-spacing: 0.1px;
+    white-space: nowrap;
+    text-wrap: nowrap;
+  }
+}
+/* ===== /Mobile Brand Flow Fix ===== */
+
   </style>
 </head>
 
